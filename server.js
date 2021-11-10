@@ -38,13 +38,13 @@ mongoose.connection
 ////////////////////////////////
 // Models
 ////////////////////////////////
-const CheeseScheme = new mongoose.Schema({
+const CheesesScheme = new mongoose.Schema({
     name: String,
     countryOfOrigin: String,
     image: String
 })
 
-const Cheese = mongoose.model("Cheese", CheeseScheme)
+const Cheeses = mongoose.model("Cheeses", CheesesScheme)
 
 ////////////////////////////////
 // Middleware
@@ -63,10 +63,10 @@ app.get("/", (req, res) => {
 
 // Index Route - get request to /cheese
 // Get us all the cheese
-app.get("/cheese", async(req, res) => {
+app.get("/cheeses", async(req, res) => {
     try {
         // send all the cheese
-        res.json(await Cheese.find({}))
+        res.json(await Cheeses.find({}))
     } catch (error) {
         // send error
         res.status(400).json({error})
@@ -75,10 +75,10 @@ app.get("/cheese", async(req, res) => {
 
 // Create Route - post request to /cheese
 // create a cheese from JSON body
-app.post("/cheese", async(req, res) => {
+app.post("/cheeses", async(req, res) => {
     try {
         // create a new cheese
-        res.json(await Cheese.create(req.body))
+        res.json(await Cheeses.create(req.body))
     } catch (error) {
         // send error
         res.status(400).json({error})
@@ -87,10 +87,10 @@ app.post("/cheese", async(req, res) => {
 
 // Update Route - put request to /cheese/:id
 // update a cheese
-app.put("/cheese/:id", async(req, res) => {
+app.put("/cheeses/:id", async(req, res) => {
     try {
         res.json(
-            await Cheese.findByIdAndUpdate(req.params.id, req.body, {new: true})
+            await Cheeses.findByIdAndUpdate(req.params.id, req.body, {new: true})
         )
     } catch (error) {
         res.status(400).json({error})
@@ -99,9 +99,9 @@ app.put("/cheese/:id", async(req, res) => {
 
 // Destory Route - delete request to /cheese/:id
 // destory or remove a cheese
-app.delete("/cheese/:id", async(req, res) => {
+app.delete("/cheeses/:id", async(req, res) => {
     try {
-        res.json(await Cheese.findByIdAndRemove(req.params.id))
+        res.json(await Cheeses.findByIdAndRemove(req.params.id))
     } catch (error) {
         res.status(400).json({error})
     }
